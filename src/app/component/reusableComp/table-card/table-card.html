@@ -1,0 +1,255 @@
+<div class="w-full">
+  @if (tableList) {
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 rounded-xl overflow-hidden gap-4 md:gap-4"
+    >
+      @for (item of tableList; track $index) {
+        <div
+          [ngClass]="[
+            hoveredStatus !== null && hoveredStatus !== item.status
+              ? 'opacity-30 scale-[0.92] transition-all duration-200'
+              : '',
+
+            item.status === 1
+              ? 'border-(--success) bg-(--success)/5 hover:bg-(--success)/10 hover:border-(--success-hover)'
+              : item.status === 2
+                ? 'border-(--red) hover:bg-(--red)/14 bg-(--red)/6 hover:border-(--red-hover)'
+                : item.status === 3
+                  ? 'border-(--warning) bg-(--warning)/8 hover:bg-(--warning)/13 hover:border-(--warning-hover)'
+                  : 'border-(--gray) bg-(--gray)/5 hover:bg-(--gray)/10 hover:border-(--gray)/hover',
+          ]"
+          class="flex flex-col justify-center items-center group py-5 border text-(--card-foreground) rounded-xl transform transition duration-300 text-center relative"
+        >
+          <div class="text-lg font-semibold font-mono">
+            {{ item.tableNumber | nA }}
+          </div>
+
+          <p class="text-sm font-semibold italic">{{ item.status | StatusPipe }}</p>
+
+          <div class="pt-4">
+            <p class="text-md">Table Capacity: {{ item.capacity }}</p>
+          </div>
+
+          <div class="pt-4 space-y-2">
+            @if (item.status === 2 && item.occupied !== null) {
+              <div class="text-md font-bold text-red-500">Occupied by:</div>
+              <div class="text-md text-white/90">
+                Name: <span class="font-semibold">{{ item.occupied.name }}</span>
+              </div>
+              <div class="text-md text-white/90">
+                Guests: <span class="font-semibold">{{ item.occupied.count }}</span>
+              </div>
+            }
+
+            @if (item.status === 3 && item.reserved !== null) {
+              <div class="text-md font-bold text-yellow-600">Reserved by:</div>
+              <div class="text-md text-white/90">
+                Name: <span class="font-semibold">{{ item.reserved.name }}</span>
+              </div>
+              <div class="text-md text-white/90">
+                Guests: <span class="font-semibold">{{ item.reserved.count }}</span>
+              </div>
+              <div class="text-md text-white/90">
+                Reservation Time:
+                <span class="font-semibold">{{
+                  item.reserved.time | date: 'dd-MMM, hh:mm:ss a'
+                }}</span>
+              </div>
+            }
+          </div>
+          <div
+            class="absolute right-2 top-2 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100"
+          >
+            <div (click)="selectedTable(item)" title="Edit Table" [class]="hoverButtonCSS">
+              <mat-icon class="flex mt-1" style="font-size: 16px">mode_edit</mat-icon>
+            </div>
+            @if (item.status == 2 || item.status == 3) {
+              <div
+                (click)="makeAvailable(item); $event.stopPropagation()"
+                title="Make Table Availabe"
+                [class]="hoverButtonCSS"
+              >
+                <mat-icon class="flex mt-1" style="font-size: 18px">check</mat-icon>
+              </div>
+            }
+            @if (item.status == 3) {
+              <div
+                (click)="swapToOccupied(item); $event.stopPropagation()"
+                title="Convert table from Reserved to Occupied"
+                [class]="hoverButtonCSS"
+              >
+                <mat-icon class="flex mt-1" style="font-size: 18px">swap_horiz</mat-icon>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <app-no-record-found></app-no-record-found>
+  }
+  @if (isPopupVisible()) {
+    <div
+      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center overflow-y-auto"
+    >
+      <div
+        class="bg-white text-black rounded-xl w-full max-w-md shadow-lg p-6 m-4 relative max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center border-b pb-3 mb-6">
+          <div class="text-lg font-semibold">
+            {{ assignTableId() == 0 ? 'Create Table' : 'Update Table' }}
+            {{ assignTableId() != 0 ? '- ' + selectedTableObj.tableNumber : '' }}
+          </div>
+          <button class="cursor-pointer flex" (click)="closePopup()">
+            <mat-icon style="font-size: 20px">cancel</mat-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-4 mb-6">
+          <div class="flex flex-wrap gap-2">
+            @for (item of bookFor; track $index) {
+              <div
+                (click)="selectStatus(item.statusId)"
+                [ngClass]="
+                  item.isSelected ? item.color + ' border-white' : 'hover:bg-white hover:text-black'
+                "
+                class="flex items-center text-center justify-center border border-black px-6 py-2 rounded transition w-fit text-sm cursor-pointer"
+              >
+                {{ item.title }}
+              </div>
+            }
+          </div>
+          <div>
+            <label for="tableName">Table Name</label>
+            <input
+              id="tableName"
+              name="tableName"
+              type="text"
+              [(ngModel)]="selectedTableObj.tableNumber"
+              (input)="errors.nameErr = ''"
+              class="px-4 py-2 border rounded w-full"
+              [ngClass]="errors.nameErr ? 'border-red-500' : 'border-gray-300'"
+            />
+            @if (errors.nameErr) {
+              <p class="text-xs text-red-500 font-semibold">
+                {{ errors.nameErr }}
+              </p>
+            }
+          </div>
+          <div>
+            <label for="capacity">Total Capacity</label>
+            <input
+              name="capacity"
+              id="capacity"
+              type="number"
+              min="0"
+              max="12"
+              [(ngModel)]="selectedTableObj.capacity"
+              (input)="errors.totalCapErr = ''"
+              class="px-4 py-2 border rounded w-full"
+              [ngClass]="errors.totalCapErr ? 'border-red-500' : 'border-gray-300'"
+            />
+            @if (errors.totalCapErr) {
+              <p class="text-xs text-red-500 font-semibold">
+                {{ errors.totalCapErr }}
+              </p>
+            }
+          </div>
+          @if (selectedTableObj.status > 1) {
+            <div class="flex flex-col gap-4">
+              @if (selectedTableObj.status == 2) {
+                <div>
+                  <label>Guest Name</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="selectedTableObj.occupied.name"
+                    class="px-4 py-2 border rounded w-full"
+                    (input)="errors.occNameErr = ''"
+                    [ngClass]="errors.occNameErr ? 'border-red-500' : 'border-gray-300'"
+                  />
+                  @if (errors.occNameErr) {
+                    <p class="text-xs text-red-500 font-semibold">
+                      {{ errors.occNameErr }}
+                    </p>
+                  }
+                </div>
+                <div>
+                  <label>Number of Guests</label>
+                  <input
+                    type="number"
+                    [max]="selectedTableObj.capacity"
+                    [(ngModel)]="selectedTableObj.occupied.count"
+                    (input)="errors.occPersonErr = ''"
+                    class="px-4 py-2 border rounded w-full"
+                    [ngClass]="errors.occPersonErr ? 'border-red-500' : 'border-gray-300'"
+                  />
+                  @if (errors.occPersonErr) {
+                    <p class="text-xs text-red-500 font-semibold">
+                      {{ errors.occPersonErr }}
+                    </p>
+                  }
+                </div>
+              } @else if (selectedTableObj.status == 3) {
+                <div>
+                  <label>Guest Name</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="selectedTableObj.reserved.name"
+                    (input)="errors.resNameErr = ''"
+                    class="px-4 py-2 border rounded w-full"
+                    [ngClass]="errors.resNameErr ? 'border-red-500' : 'border-gray-300'"
+                  />
+                  @if (errors.resNameErr) {
+                    <p class="text-xs text-red-500 font-semibold">
+                      {{ errors.resNameErr }}
+                    </p>
+                  }
+                </div>
+                <div>
+                  <label>Number of Guests</label>
+                  <input
+                    type="number"
+                    [max]="selectedTableObj.capacity"
+                    [(ngModel)]="selectedTableObj.reserved.count"
+                    (input)="errors.resPersonErr = ''"
+                    class="px-4 py-2 border rounded w-full"
+                    [ngClass]="errors.resPersonErr ? 'border-red-500' : 'border-gray-300'"
+                  />
+                  @if (errors.resPersonErr) {
+                    <p class="text-xs text-red-500 font-semibold">
+                      {{ errors.resPersonErr }}
+                    </p>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="flex items-center justify-end space-x-4">
+          @if (assignTableId() > 0) {
+            <button
+              (click)="isDeletePopup.set(true)"
+              class="bg-(--red) text-white py-2 px-3 rounded hover:bg-(--red-hover) transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+            >
+              Delete Table
+            </button>
+          }
+          <button
+            (click)="updateTable()"
+            [disabled]="isLoading()"
+            class="bg-black text-white py-2 px-3 rounded hover:bg-gray-800 transition disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+          >
+            @if (isLoading()) {
+              <mat-icon class="animate-spin">autorenew</mat-icon>
+            }
+            {{ isLoading() ? '' : assignTableId() == 0 ? 'Create Table' : 'Update Table' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isDeletePopup()) {
+    <app-confirm-popup (popupValue)="onEventCall($event)"></app-confirm-popup>
+  }
+</div>

@@ -1,0 +1,22 @@
+[
+    {
+      "title": "Total Table",
+      "count": 16,
+      "icon": "table_chart"
+    },
+    {
+      "title": "Available Table",
+      "count": 7,
+      "icon": "'check_circle"
+    },
+    {
+      "title": "Occupied Table",
+      "count": 5,
+      "icon": "block"
+    },
+    {
+      "title": "Reserved Table",
+      "count": 4,
+      "icon": "event_seat"
+    }
+  ]

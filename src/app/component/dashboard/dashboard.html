@@ -1,0 +1,33 @@
+<div class="space-y-4">
+  <div class=" border border-white/10 p-4 rounded-xl">
+    <app-stat-card [tablist]="stateValue()" (hoverChange)="hoveredStatus.set($event)"></app-stat-card>
+  </div>
+  <div class="border border-white/10 p-4 rounded-xl">
+    <div class="pb-4">
+      <div class="block md:flex items-center justify-between space-y-4 md:space-y-0">
+        <div class="font-semibold italic flex items-center gap-1 ">Table Insight 
+          <div (click)="refreshData()" [ngClass]="loading() ? 'animate-spin' : ''" class="cursor-pointer hover:scale-105 duration-300 w-fit flex items-center">
+            <mat-icon>refresh</mat-icon>
+            </div>
+          </div>
+          <div>
+              <button (click)="onAddButtonClick()" class="w-full md:w-auto">
+              <div class="flex items-center justify-center border border-white px-6 py-1 rounded hover:bg-white hover:text-black cursor-pointer transition w-auto md:w-fit">
+                Add New Table <span class="ml-2">→</span>
+              </div>
+            </button>
+          </div>
+      </div>
+        <div class="flex flex-wrap gap-2 md:gap-6 pt-4 md:pt-2">
+        @for (item of tableColor; track $index) {
+          <div class="flex items-center gap-x-1 cursor-pointer" (mouseenter)="hoveredStatus.set(item.statusId)" (mouseleave)="hoveredStatus.set(null)">
+            <div class="rounded-full size-3 " [ngClass]="item.color"></div>
+            <div class="text-sm">{{item.title}}</div>
+          </div>
+          }
+        </div>
+    </div>
+    <div>
+      <app-table-card [tableList]="tableValue" (tableUpdated)="onEventCall($event)" [hoveredStatus]="hoveredStatus()"></app-table-card>
+    </div>
+  </div>

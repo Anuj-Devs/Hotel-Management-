@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+:root {
+  /* Colors */
+  --primary: #818cf8;
+  --primary-foreground: #ffffff;
+
+  --hover: #3930f1;
+
+  --success: #22c55e;
+  --success-hover: #16a34a;
+
+  --secondary: #6b7280;
+  --secondary-foreground: #ffffff;
+
+  --background: #0f172a;
+  --foreground: #f8fafc;
+
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+
+  --button: #6366f1;
+  --button-foreground: #ffffff;
+
+  --red: #b91c1c;
+  --red-hover: #991b1b;
+
+  --warning: #ead516;
+  --warning-hover: #d3c016;
+
+  --new-text: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+@layer base {
+  :root {
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-button: var(--button);
+    --color-button-foreground: var(--button-foreground);
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--new-text);
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
+
+
+.custom-snackbar {
+  background: #1f2937; /* dark */
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+}

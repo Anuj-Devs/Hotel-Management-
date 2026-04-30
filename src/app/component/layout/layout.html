@@ -1,0 +1,19 @@
+<div class="h-screen bg-black text-white">
+
+  <!-- Topbar full width -->
+  <div class="w-full">
+    <app-topbar></app-topbar>
+  </div>
+
+  <div class="flex h-[calc(100vh-56px)]"> 
+    <!-- Sidebar -->
+    <!-- <app-sidebar></app-sidebar> -->
+
+    <!-- Content -->
+    <div class="flex-1 p-4 overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

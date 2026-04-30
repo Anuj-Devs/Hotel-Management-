@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "tableNumber": "T1",
+    "status": 1,
+    "capacity": 4,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 2,
+    "tableNumber": "T2",
+    "status": 2,
+    "capacity": 6,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": {
+      "name": "Amit",
+      "count": 3,
+      "time": "2026-04-29T19:00"
+    }
+  },
+  {
+    "id": 3,
+    "tableNumber": "T3",
+    "status": 3,
+    "capacity": 2,
+    "isDeleted": false,
+    "reserved": {
+      "name": "Rahul",
+      "count": 2,
+      "time": "2026-04-29T18:30"
+    },
+    "occupied": null
+  },
+  {
+    "id": 4,
+    "tableNumber": "T4",
+    "status": 1,
+    "capacity": 5,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 5,
+    "tableNumber": "T5",
+    "status": 2,
+    "capacity": 4,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": {
+      "name": "John",
+      "count": 4,
+      "time": "2026-04-29T20:00"
+    }
+  },
+  {
+    "id": 6,
+    "tableNumber": "T6",
+    "status": 3,
+    "capacity": 8,
+    "isDeleted": false,
+    "reserved": {
+      "name": "Sophia",
+      "count": 6,
+      "time": "2026-04-29T17:30"
+    },
+    "occupied": null
+  },
+  {
+    "id": 7,
+    "tableNumber": "T7",
+    "status": 1,
+    "capacity": 2,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 8,
+    "tableNumber": "T8",
+    "status": 2,
+    "capacity": 10,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": {
+      "name": "Mike",
+      "count": 7,
+      "time": "2026-04-29T21:00"
+    }
+  },
+  {
+    "id": 9,
+    "tableNumber": "T9",
+    "status": 3,
+    "capacity": 4,
+    "isDeleted": false,
+    "reserved": {
+      "name": "Anna",
+      "count": 3,
+      "time": "2026-04-29T18:45"
+    },
+    "occupied": null
+  },
+  {
+    "id": 10,
+    "tableNumber": "T10",
+    "status": 1,
+    "capacity": 6,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 11,
+    "tableNumber": "T11",
+    "status": 2,
+    "capacity": 4,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": {
+      "name": "Oliver",
+      "count": 2,
+      "time": "2026-04-29T20:30"
+    }
+  },
+  {
+    "id": 12,
+    "tableNumber": "T12",
+    "status": 1,
+    "capacity": 8,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 13,
+    "tableNumber": "T13",
+    "status": 3,
+    "capacity": 3,
+    "isDeleted": false,
+    "reserved": {
+      "name": "David",
+      "count": 2,
+      "time": "2026-04-29T18:15"
+    },
+    "occupied": null
+  },
+  {
+    "id": 14,
+    "tableNumber": "T14",
+    "status": 2,
+    "capacity": 6,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": {
+      "name": "Sarah",
+      "count": 5,
+      "time": "2026-04-29T19:30"
+    }
+  },
+  {
+    "id": 15,
+    "tableNumber": "T15",
+    "status": 1,
+    "capacity": 5,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  },
+  {
+    "id": 16,
+    "tableNumber": "T16",
+    "status": 1,
+    "capacity": 10,
+    "isDeleted": false,
+    "reserved": null,
+    "occupied": null
+  }
+]
