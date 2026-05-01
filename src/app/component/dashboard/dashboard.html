@@ -6,7 +6,7 @@
     <div class="pb-4">
       <div class="block md:flex items-center justify-between space-y-4 md:space-y-0">
         <div class="font-semibold italic flex items-center gap-1 ">Table Insight 
-          <div (click)="refreshData()" [ngClass]="loading() ? 'animate-spin' : ''" class="cursor-pointer hover:scale-105 duration-300 w-fit flex items-center">
+          <div title="Refresh Data" (click)="refreshData()" [ngClass]="loading() ? 'animate-spin' : ''" class="cursor-pointer hover:scale-105 duration-300 w-fit flex items-center">
             <mat-icon>refresh</mat-icon>
             </div>
           </div>
