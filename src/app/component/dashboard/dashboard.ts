@@ -58,7 +58,7 @@ export class Dashboard implements OnInit {
   refreshData() {
     this.loading.set(true);
     setTimeout(() => {
-      this.stateValue = this.serviceData.tableCountSignal();
+      this.stateValue = this.serviceData.tableCountSignal;
       this.tableValue = JSON.parse(localStorage.getItem('tableData') || '[]');
       this.loading.set(false);
     }, 1000);
