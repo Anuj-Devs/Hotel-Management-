@@ -320,6 +320,21 @@ Occupied → Available
 ```
 ---
 
+### ⌨️ Keyboard Shortcuts
+
+For faster admin workflow, keyboard shortcuts are available:
+
+- **Ctrl + K** → Open **Quick Seat Popup**
+- **Ctrl + M** → Open **Create New Table Popup**
+
+### Benefits:
+- Faster navigation
+- Reduced manual clicks
+- Improved admin efficiency
+- Smooth power-user experience
+
+---
+
 ## 6. Local Storage State Management
 
 The project uses **LocalStorage** for persistence.
