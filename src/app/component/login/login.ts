@@ -54,7 +54,7 @@ export class Login {
       
       
 
-      const matchUser = this.serviceData.staticUserLogin.find((u: any) => u.username === this.username);
+      const matchUser = this.serviceData.staticUserLogin.find((u: any) => u.username.toLowerCase().trim() === this.username.toLowerCase().trim());
 
       if (!matchUser) {
         this.errors.general = "Username is not found";
