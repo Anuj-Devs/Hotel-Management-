@@ -18,7 +18,7 @@
                   ? 'border-(--warning) bg-(--warning)/8 hover:bg-(--warning)/13 hover:border-(--warning-hover)'
                   : 'border-(--gray) bg-(--gray)/5 hover:bg-(--gray)/10 hover:border-(--gray)/hover',
           ]"
-          class="flex flex-col justify-center items-center group py-5 border text-(--card-foreground) rounded-xl transform transition duration-300 text-center relative"
+          class="flex flex-col justify-center items-center group py-5 border text-(--card-foreground) rounded-xl transform transition duration-300 text-center relative" tabindex="0"
         >
           <div class="text-lg font-semibold font-mono">
             {{ item.tableNumber | nA }}
@@ -57,7 +57,7 @@
             }
           </div>
           <div
-                class="absolute right-2 top-2 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100"
+                class="absolute right-2 top-2 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
               >
                 <div
                   (click)="selectedTable(item)"
